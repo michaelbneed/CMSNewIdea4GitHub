@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+	<h1>Adaptive Systems Site Admin</h1>
+	<p class="lead">Manage our website!</p>
+	@Html.ActionLink("Content Changes >>", "Index", "ContentPublicSites", null, new { @class = "btn btn-primary btn-lg", @target = "_blank" })
+</div>

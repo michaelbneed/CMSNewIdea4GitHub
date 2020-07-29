@@ -1,0 +1,46 @@
+﻿@model AdaptivePublicWebsite.DataAccess.EntityFramework.Trainer
+
+@{
+	ViewBag.Title = "Trainer Details";
+}
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="divBorder" style="padding-top:137px;">
+	<div>
+		<div class="row bg-primary paddedFromSides">
+			<div class="col-md-4">
+				<h6>Instructor: @Html.DisplayFor(model => model.Name)</h6>
+			</div>
+			<div class="col-md-4">
+				<h6>Title: @Html.DisplayFor(model => model.Title)</h6>
+			</div>
+			<div class="col-md-4">
+				<h6>Company: @Html.Raw(Model.Company)</h6>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row divBorder">
+	<div class="col-md-2"></div>
+	<div class="col-md-2">
+		<img class="img-fluid w-75" style="padding-top:8px;" src="@Url.Action("RenderProfileImage", "Services", new { id = Model.ID })" alt="image" />
+	</div>
+	<div class="col-md-4">
+		<img class="img-fluid" style="padding-top:8px;" src="@Url.Action("RenderProfileBanner", "Services", new { id = Model.ID })" alt="image" />
+	</div>
+	<div class="col-md-2"></div>
+</div>
+<br />
+
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		@Html.Raw(Model.Intro)
+	</div>
+	<div class="col-md-3"></div>
+</div>
+

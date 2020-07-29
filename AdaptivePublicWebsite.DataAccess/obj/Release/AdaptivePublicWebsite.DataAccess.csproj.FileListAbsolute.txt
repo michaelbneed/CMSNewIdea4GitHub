@@ -1,0 +1,12 @@
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\bin\Release\AdaptivePublicWebsite.DataAccess.dll.config
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\bin\Release\AdaptivePublicWebsite.DataAccess.dll
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\bin\Release\AdaptivePublicWebsite.DataAccess.pdb
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\bin\Release\EntityFramework.dll
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\bin\Release\EntityFramework.xml
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\obj\Release\AdaptivePublicWebsite.DataAccess.csprojAssemblyReference.cache
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\obj\Release\AdaptivePublicWebsite.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\obj\Release\AdaptivePublicWebsite.DataAccess.csproj.CopyComplete
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\obj\Release\AdaptivePublicWebsite.DataAccess.dll
+C:\Users\micha\source\repos\AdaptivePublicWebsite\AdaptivePublicWebsite.DataAccess\obj\Release\AdaptivePublicWebsite.DataAccess.pdb

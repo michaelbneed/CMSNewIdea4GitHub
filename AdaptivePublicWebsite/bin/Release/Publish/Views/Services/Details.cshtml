@@ -1,0 +1,334 @@
+﻿@model AdaptivePublicWebsite.DataAccess.EntityFramework.ContentPublicSite
+
+@{
+	ViewBag.Title = "Service Details - " + @Model.Title;
+}
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+body {
+	background-image: url(data:@Model.PageImageContentType;base64,@Convert.ToBase64String(Model.PageImage));
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+}
+</style>
+
+<!--modal training-->
+<div class="modal fade" id="trainingModal" tabindex="-1" role="dialog" style="padding-top:125px;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="col-md-6">
+					<h5 class="modal-title text-primary" id="exampleModalLabel">Register Now</h5>
+				</div>
+				<div class="col-md-6">
+					<button type="button" class="close text-primary" data-dismiss="modal" onclick="ResetSignupModalMessages()" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body">
+				<label id="txtSignup" class="text-dark">
+					Select and submit an upcoming class you are interested in. Some classes may have minimum/maximum attendee
+					requirements. An Adaptive Systems Training Coordinator will contact you shortly to finalize your request.
+				</label>
+				<label id="txtSignupSuccess" class="text-success" style="display:none">
+					Success, we will contact your shortly
+				</label>
+				<label id="txtSignupFail" class="text-danger" style="display:none">
+					Name, Email and a valid Course are required to sign up
+				</label>
+				<form method="post" id="trainingSignup">
+					<div class="form-group">
+						<label class="col-form-label">Name:</label>
+						<input type="text" class="form-control" id="studentName" placeholder="Full Name" required>
+					</div>
+					<div class="form-group">
+						<label class="col-form-label">Email:</label>
+						<input type="email" class="form-control" id="studentEmail" placeholder="Email" required>
+					</div>
+					<div class="form-group">
+						<label class="col-form-label">Course:</label>
+						<select class="form-control" id="courseId" style="height:40px;"></select>
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">Message:</label>
+						<script>
+							document.getElementById('trainingSignup').onsubmit = function (e) {
+								e.preventDefault();
+							}
+						</script>
+						<textarea class="form-control" id="studentMessage" placeholder="Enter a message or ask a question..."></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" name="Close" data-dismiss="modal" onclick="ResetSignupModalMessages()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<input type="submit" id="trainingSubmit" value="Register" name="Register" class="btn btn-success" onclick="Signup()">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="fixed-top serviceDetailHeader divBorderServices">
+	@Model.Title
+</div>
+
+<div class="container col-md-12">
+	<div class="row col-md-12">
+		<div class="col-md-1"></div>
+		<div class="col-md-10 serviceDetailBody roundedContentImages">
+			<div class="card-body">
+				@if (Model.NavLink.ToLower().Contains("training"))
+				{
+					<a href="#" class="btn btn-primary center-block" data-toggle="modal" data-target="#trainingModal" onclick="GetCourseList()" ;>Sign Up</a>
+					<div class="row col-md-12 paddedFromPoles paddedFromSides">
+						<div class="col-md-7">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-text scrollYAxis">
+										<p class="cardFill">@Html.Raw(Model.PageText)</p>
+									</div>
+								</div>
+							</div>
+							<br />
+						</div>
+						<div class="col-md-5">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-text">
+										<div class="cardFill">
+											<label class="col-form-label">Upcoming Training:</label>
+											<br />
+											@if (@ViewBag.CourseListForSidebar.Count > 0)
+											{
+												<ul class="ulNoBullet">
+													@foreach (var course in @ViewBag.CourseListForSidebar)
+													{
+														<li class="row">
+															<div class="col-md-2 headerText">
+																@Html.ActionLink("View", "CourseDetails", "Services", new { id = @course.ID }, new { @class = "btn btn-primary small" })
+															</div>
+															<div class="col-md-4 headerText">
+																<span class="headerTextBold">Course: </span>
+																<br />
+																@course.CourseName
+															</div>
+															<div class="col-md-3 headerText">
+																<span class="headerTextBold">Instructor: </span>
+																<br />
+																@course.Instructor
+															</div>
+															<div class="col-md-3 headerText">
+																<span class="headerTextBold">Starting: </span>
+																<br />
+																@course.StartDate.ToShortDateString()
+															</div>
+														</li>
+													}
+												</ul>
+											}
+											else
+											{
+												<label class="col-form-label small">Classes forming soon!</label>
+											}
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							<div class="card">
+								<div class="card-body">
+									<div class="card-text">
+										<div class="cardFill">
+											<label class="form-lebel">Trainers:</label>
+											<br />
+											<ul class="ulNoBullet scrollable">
+												@foreach (var trainer in @ViewBag.TrainersListForSidebar)
+												{
+													<li style="width: 100%;">
+														<div class="card" style="width: 100%;">
+															<div class="card-body">
+																<table style="width:100%;">
+																	<tr>
+																		<td style="width:50%;">
+																			<img class="img-fluid w-75" src="@Url.Action("RenderProfileImage", "Services", new { id = trainer.ID })" alt="image" />
+																		</td>
+																		<td style="width:50%;">
+																			<h6 class="card-title">@trainer.Name</h6>
+																			<h6 class="card-title">@trainer.Title</h6>
+																			<a href="@Url.Action("TrainerDetails", "Services", new { id = trainer.ID })" class="btn-primary small">Instructor Page</a>
+																		</td>
+																	</tr>
+																</table>
+															</div>
+														</div>
+													</li>
+													<br />
+												}
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							<div class="card">
+								<div class="card-body">
+									<div class="card-text">
+										<div class="cardFill">
+											<label class="col-form-label">Services:</label><br />
+											@foreach (var service in @ViewBag.ServicesListForSidebar)
+											{
+												//var navLink = service.NavLink.ToString();
+												<a href="@Url.Action("Details", "Services", new { id = @service.ID })">
+													@service.NavLink
+												</a>
+
+												<br />
+											}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+				else
+				{
+					<div class="row col-md-12 paddedFromPoles paddedFromSides">
+						<div class="col-md-7">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-text scrollYAxis">
+										<p class="cardFill">@Html.Raw(Model.PageText)</p>
+									</div>
+								</div>
+							</div>
+							<br />
+						</div>
+						<div class="col-md-5">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-text">
+										<div class="cardFill">
+											<label class="col-form-label">Services:</label><br />
+											@foreach (var service in @ViewBag.ServicesListForSidebar)
+											{
+												//var navLink = service.NavLink.ToString();
+												<a href="@Url.Action("Details", "Services", new { id = @service.ID })" class="btn btn-primary small">
+													@service.NavLink
+												</a>
+												<br />
+												<br />
+											}
+										</div>
+									</div>
+								</div>
+							</div>
+							<br />
+							@*ADD A CARD WHEN THE TIME IS RIGHT TO POPULATE THE SIDEBAR ON NON-TRAINING PAGES!*@
+							@*<div class="card">
+								<div class="card-body">
+									<div class="card-text">
+										<div class="cardFill">
+											
+										</div>
+									</div>
+								</div>
+							</div>*@
+						</div>
+					</div>
+
+				}
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+function Signup() {
+	var studentName = document.getElementById('studentName').value;
+	var studentEmail = document.getElementById('studentEmail').value;
+	var studentMessage = document.getElementById('studentMessage').value;
+	var courseId = document.getElementById('courseId').value;
+	var txtSignupSuccess = document.getElementById("txtSignupSuccess");
+	var txtSignupFail = document.getElementById("txtSignupFail");
+	var trainingSignup = document.getElementById("trainingSignup");
+	var trainingSubmit = document.getElementById("trainingSubmit");
+	
+	if (studentName === "" || studentEmail === "" || courseId === null) {
+			txtSignupFail.style.display = "block";
+			txtSignupSuccess.style.display = "none";
+	}
+	else {
+		$.ajax({
+			type: "POST",
+			url: '@Url.Action("Create", "Students")',
+			data: {
+				CourseID: courseId,
+				StudentName: studentName,
+				Email: studentEmail,
+				Comments: studentMessage,
+				CreateDate: '01/01/1900'
+			},
+			datatype: "json",
+			success: function (data) {
+				if (data !== null) {
+					txtSignupSuccess.style.display = "block";
+					txtSignupFail.style.display = "none";
+					trainingSignup.style.display = "none";
+					trainingSubmit.style.display = "none";
+				} else {
+					txtSignupSuccess.style.display = "none";
+					txtSignupFail.style.display = "block";
+				}
+			}
+		});
+	}
+}
+
+function ResetSignupModalMessages() {
+	document.getElementById("txtSignup").style.display = "block";
+	document.getElementById("txtSignupFail").style.display = "none";
+	document.getElementById("txtSignupSuccess").style.display = "none";
+	document.getElementById('studentName').value = "";
+	document.getElementById('studentEmail').value = "";
+	document.getElementById('studentMessage').value = "";
+	document.getElementById('courseId').value = null;
+	trainingSignup.style.display = "block";
+	trainingSubmit.style.display = "block";
+}
+
+function GetCourseList() {
+    $.ajax({
+        url: '@Url.Action("PopulateCoursesList", "Students")',
+        type: "POST",
+        dataType: 'json',
+        success: function (data) {
+            $('#courseId').empty();
+            $('#courseId').append('<option value=' + null + '>' + "Select from courses" + '</option > ');
+            for (var i = 0; i < data.length; i++) {
+                $('#courseId').append('<option value=' + data[i].Value + '>' + data[i].Text + '</option > ');
+            }
+        }
+	});
+
+function GetTrainers() {
+	$.ajax({
+		url: '@Url.Action("Index", "Trainers")',
+		type: "POST",
+		dataType: 'json',
+		success: function (data) {
+
+		}
+	});
+	}
+}
+</script>

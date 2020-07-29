@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="michaelbneed-002-site1" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\micha\\source\\repos\\AdaptivePublicWebsite\\AdaptivePublicWebsite\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\micha\\source\\repos\\AdaptivePublicWebsite\\AdaptivePublicWebsite\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="AdaptivePublicEntities-Web.config Connection String" description="" value="metadata=res://*/EntityFramework.Model1.csdl|res://*/EntityFramework.Model1.ssdl|res://*/EntityFramework.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SQL5049.site4now.net;Initial Catalog=DB_A45EDD_michaelbneed;User Id=DB_A45EDD_michaelbneed_admin;Password=1husdad1;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\micha\\source\\repos\\AdaptivePublicWebsite\\AdaptivePublicWebsite\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='AdaptivePublicEntities']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." value="Data Source=SQL5049.site4now.net;Initial Catalog=DB_A45EDD_michaelbneed;User Id=DB_A45EDD_michaelbneed_admin;Password=1husdad1" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\micha\\source\\repos\\AdaptivePublicWebsite\\AdaptivePublicWebsite\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

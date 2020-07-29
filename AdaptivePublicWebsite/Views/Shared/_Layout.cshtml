@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@ViewBag.Title</title>
+<link rel="shortcut icon" href="~/Content/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S"
+		crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/css/style.css">
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+@*@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+	@*<div class="modal fade" id="Section4Modal" tabindex="-1" role="dialog" style="padding-top:125px;">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="col-md-6">
+						<h5 class="modal-title text-primary" id="exampleModalLabel">Section4 Famtastic</h5>
+					</div>
+					<div class="col-md-6">
+						<button type="button" class="close text-primary" data-dismiss="modal" onclick="ResetSection4()" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					<label id="txtSection4" class="text-dark">
+						Send us a message and we will reach out to assist!
+					</label>
+					<label id="txtSection4Success" class="text-success" style="display:none">
+						Success, we will Section4 your shortly!
+					</label>
+					<label id="txtSection4Fail" class="text-danger" style="display:none">
+						All fields are required...
+					</label>
+					<form method="post" id="Section4Form">
+						<div class="form-group">
+							<label class="col-form-label">Name:</label>
+							<input type="text" class="form-control" id="Section4Name" placeholder="Full Name" required>
+						</div>
+						<div class="form-group">
+							<label class="col-form-label">Email:</label>
+							<input type="email" class="form-control" id="Section4Email" placeholder="Email" required>
+						</div>
+						<div class="form-group">
+							<label class="col-form-label">Who would you like to talk to?</label>
+							<select id="Section4SendEmailOption" name="sendOption" class="form-control" style="height:40px;" required>
+								<option value="">Please select...</option>
+								<option value="sales">Sales</option>
+								<option value="hr">HR</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">Message:</label>
+							<textarea class="form-control" id="Section4Message" placeholder="Enter a message or ask a question..." required></textarea>
+						</div>
+						<script>
+							document.getElementById('Section4Form').onsubmit = function (e) {
+								e.preventDefault();
+							}
+						</script>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" name="Close" data-dismiss="modal" onclick="ResetSection4()" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<input type="submit" id="Section4Submit" value="Send" name="Create" class="btn btn-success" onclick="Section4()">
+				</div>
+			</div>
+		</div>
+	</div>*@
+
+	<!--top info strip navigation and search-->
+	<div class="fixed-top">
+		@if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+		{
+			<!--<div class="col-md-6"></div>-->
+			<nav id="navigation" class="navbar fixed-top navbar-expand-lg navbar-light bg-light divBorder" style="z-index:99">
+				<div class="row padLogo">
+					<div class="md-col-7">
+						<a href="#"><img src="~/Content/img/fam_simple.png" /></a>
+						<br />
+						<div class="headerText">
+						</div>
+					</div>
+				</div>
+				<div class="md-col-5">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarToggler">
+						<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+							@*<li class="nav-item">
+								<br />
+								@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link dropdown-item btn btn-warning center-block", @style = "color:white;width:125px;" })
+							</li>*@
+							<li class="dropdown">
+								<br />
+								<a href="#" class="btn btn-warning center-block dropdown-toggle" data-toggle="dropdown" style="color:white;width:125px;">Focus <span class="sr-only">(current)</span></a>
+								<div class="dropdown-menu">
+									<ul class="ulNoBullet">
+										<li class="nav-item">
+											@Html.ActionLink("Scripture", "Index", "Home", null, new { @href = "#Section1" })
+										</li>
+										<li class="nav-item">
+											@Html.ActionLink("Prayer", "Index", "Home", null, new { @href = "#Section2" })
+										</li>
+									</ul>
+								</div>
+							</li>
+							
+							<li class="nav-item">
+								<br />
+								@if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+								{
+									@Html.ActionLink("Services", "Details", "Services", null, new { @href = "#services", @class = "btn btn-warnig center-block", @style = "color:white;width:125px;" })
+								}
+								else
+								{
+									<a class="nav-link dropdown-item btn btn-warning center-block" style="color:white;width:125px;" href="@Url.Action("Index", "Home")#services">Services</a>
+								}
+
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		}
+	</div>
+	<div>
+		<br />
+		@RenderBody()
+	</div>
+
+	@*footer*@
+	@*Layout for landing/home page footer*@
+	@if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+	{
+		<footer id="Section4" class="copyrightSectionLanding text-center">
+			<div class="row col-md-12">
+				<div class="contentDiv">
+					<div class="col-md-4"></div>
+					<div class="col-md-6">
+						@*<h2 class="center-block">@ViewBag.Section4Title</h2>
+						<div class="scrollable">
+							@Html.Raw(@ViewBag.Section4Content)
+						</div>*@
+					</div>
+					<div class="col-md-1">
+						<br />
+						@*<div>
+							<br /><br /><br />
+							<a href="#" data-toggle="modal" data-target="#Section4Modal" class="col-md-2" style="width:100px;">
+								<img src="~/Content/img/icons/email-40.png" />
+							</a>
+						</div>*@
+					</div>
+					<div class="col-md-1">
+						<br />
+						@*<div>
+							<br /><br /><br />
+							<a href="https://www.linkedin.com/company/Famtastic-systems/" target="_blank" class="col-md-2" style="width:100px;">
+								<img src="~/Content/img/icons/linkedin-6-40.png" />
+							</a>
+						</div>*@
+					</div>
+				</div>
+			</div>
+			<p>&copy;Famtastic @DateTime.Now.Year.ToString() </p>
+			<br />
+		</footer>
+	}
+
+	@*Layout for services page footer*@
+	@*@if (ViewContext.RouteData.Values["controller"].ToString() == "Services")
+	{
+		<footer id="Section4" class="copyrightSection text-center">
+			<div class="row col-md-12">
+				<div class="contentDiv">
+					<div class="col-md-4"></div>
+					<div class="col-md-6">
+						<h2 class="center-block">@ViewBag.Section4Title</h2>
+						<div class="scrollable">
+							@Html.Raw(@ViewBag.Section4Content)
+						</div>
+					</div>
+					<div class="col-md-1">
+						<br />
+						<div>
+							<br /><br /><br />
+							<a href="#" data-toggle="modal" data-target="#Section4Modal" class="col-md-2" style="width:100px;">
+								<img src="~/Content/img/icons/email-40.png" />
+							</a>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<br />
+						<div>
+							<br /><br /><br />
+							<a href="https://www.linkedin.com/company/Famtastic-systems/" target="_blank" class="col-md-2" style="width:100px;">
+								<img src="~/Content/img/icons/linkedin-6-40.png" />
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p>&copy;Famtastic @DateTime.Now.Year.ToString() </p>
+			<br />
+		</footer>
+	}*@
+
+
+
+	@*@Scripts.Render("~/bundles/jquery")
+		@Scripts.Render("~/bundles/bootstrap")
+		@RenderSection("scripts", required: false)*@
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+	<script src="~/Scripts/bootstrap.js"></script>
+	<script src="~/Content/js/script.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+	@*<script type="text/javascript">
+		function Section4() {
+			var Section4Name = document.getElementById('Section4Name').value;
+			var Section4Email = document.getElementById('Section4Email').value;
+			var Section4Message = document.getElementById('Section4Message').value;
+			var txtSection4Success = document.getElementById("txtSection4Success");
+			var txtSection4Fail = document.getElementById("txtSection4Fail");
+			var Section4Form = document.getElementById("Section4Form");
+			var Section4Submit = document.getElementById("Section4Submit");
+			var Section4SendEmailOption = document.getElementById("Section4SendEmailOption").value;
+
+			if (Section4Name === "" || Section4Email === "" || Section4Message === "" || Section4SendEmailOption === "") {
+				txtSection4Fail.style.display = "block";
+				txtSection4Success.style.display = "none";
+			} else {
+				$.ajax({
+				type: "POST",
+				url: '@Url.Action("Create", "Section4s")',
+				data: {
+				Name: Section4Name,
+				Email: Section4Email,
+				Message: Section4Message,
+				sendOption: Section4SendEmailOption
+			},
+				datatype: "json",
+					success: function (data) {
+						if (data !== null) {
+							txtSection4Success.style.display = "block";
+							txtSection4Fail.style.display = "none";
+							Section4Form.style.display = "none";
+							Section4Submit.style.display = "none";
+						} else {
+							txtSection4Success.style.display = "none";
+							txtSection4Fail.style.display = "block";
+						}*@
+
+				@*//if (data === "success") {
+				//	txtSection4Success.style.display = "block";
+				//	txtSection4Fail.style.display = "none";
+				//	Section4Form.style.display = "none";
+				//	Section4Submit.style.display = "none";
+				//} else {
+				//	txtSection4Success.style.display = "none";
+				//	txtSection4Fail.style.display = "block";
+				//}
+			}
+			});
+		}
+	}
+
+		function ResetSection4() {
+			document.getElementById("txtSection4").style.display = "block";
+			document.getElementById("txtSection4Success").style.display = "none";
+			document.getElementById("txtSection4Fail").style.display = "none";
+			document.getElementById('Section4Name').value = "";
+			document.getElementById('Section4Email').value = "";
+			document.getElementById('Section4Message').value = "";
+			Section4Form.style.display = "block";
+			Section4Submit.style.display = "block";
+		}
+	</script>*@
+</body>
+</html>

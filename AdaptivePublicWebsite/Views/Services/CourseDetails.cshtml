@@ -1,0 +1,39 @@
+﻿@model FamtasticPublicWebsite.DataAccess.EntityFramework.Course
+
+@{
+	ViewBag.Title = "Course Details";
+}
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="divBorder" style="padding-top:137px;">
+	<div>
+		<div class="row bg-primary paddedFromSides">
+			<div class="col-md-2">
+				<h6>Course: @Html.DisplayFor(model => model.CourseName)</h6>
+			</div>
+			<div class="col-md-2">
+				<h6>Applies to certification: @Html.Raw(Model.Certification)</h6>
+			</div>
+			<div class="col-md-2">
+				<h6>Instructor: @Html.DisplayFor(model => model.Instructor)</h6>
+			</div>
+			<div class="col-md-3">
+				<h6>Starting: @Html.DisplayFor(model => model.StartDate)</h6>
+			</div>
+			<div class="col-md-3">
+				<h6>Ending: @Html.DisplayFor(model => model.EndDate)</h6>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-2"></div>
+	<br />
+	<div class="col-md-8 paddedFromPoles">
+		@Html.Raw(Model.CourseDescription)
+	</div>
+	<div class="col-md-2"></div>
+</div>

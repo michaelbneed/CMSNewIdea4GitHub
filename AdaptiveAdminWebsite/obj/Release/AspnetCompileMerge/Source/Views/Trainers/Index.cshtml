@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AdaptivePublicWebsite.DataAccess.EntityFramework.Trainer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped">
+	<tr>
+		<th></th>
+		<th>
+			@Html.DisplayNameFor(model => model.Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Title)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Company)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Email)
+		</th>
+	</tr>
+
+@foreach (var item in Model) {
+	<tr>
+		<td style="text-align:center;width:200px;">
+			@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+			@Html.ActionLink("Open", "Details", new { id = item.ID }) |
+			@Html.ActionLink("Delete", "Delete", new { id = item.ID })
+		</td>
+		<td style="width:300px;font-weight:bold">
+			@Html.DisplayFor(modelItem => item.Name)
+			<br />
+			<img class="img-fluid w-25" src="@Url.Action("RenderProfileImage", "Trainers", new { id = item.ID})" alt="image" />
+		</td>
+		<th>
+			@Html.DisplayFor(modelItem => item.Title)
+		</th>
+		<th>
+			@Html.DisplayFor(modelItem => item.Company)
+		</th>
+		<th>
+			@Html.DisplayFor(modelItem => item.Email)
+		</th>
+	</tr>
+}
+
+</table>

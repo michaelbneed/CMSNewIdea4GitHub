@@ -1,0 +1,49 @@
+﻿@model FamtasticPublicWebsite.DataAccess.EntityFramework.ContentPublicSite
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ContentPublicSite</h4>
+    <hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Title)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Title)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.NavLink)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.NavLink)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.PageText)
+		</dt>
+
+		<dd>
+			@Html.Raw(Model.PageText)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.IsUniqueServicePage)
+		</dt>
+
+		<dd>
+			@Html.Raw(Model.IsUniqueServicePage)
+		</dd>
+	</dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

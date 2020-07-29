@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8fbff1a600bb475ebea06246f5c16743" Name="Diagram1">
+        <EntityTypeShape EntityType="FamtasticPublicModel.ContentPublicSite" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.AspNetRole" Width="1.5" PointX="3.375" PointY="2.5" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.AspNetUserClaim" Width="1.5" PointX="7.875" PointY="1" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.AspNetUserLogin" Width="1.5" PointX="7.875" PointY="3.75" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.AspNetUser" Width="1.5" PointX="5.625" PointY="1.375" />
+        <AssociationConnector Association="FamtasticPublicModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="FamtasticPublicModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="FamtasticPublicModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.Contact" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.Course" Width="1.5" PointX="3.375" PointY="7" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.Student" Width="1.5" PointX="5.625" PointY="7.25" />
+        <AssociationConnector Association="FamtasticPublicModel.FK_Student_Course" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.Trainer" Width="1.5" PointX="1.125" PointY="8.5" />
+        <AssociationConnector Association="FamtasticPublicModel.FK_Course_Trainer" />
+        <EntityTypeShape EntityType="FamtasticPublicModel.sysdiagram" Width="1.5" PointX="8.375" PointY="6.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,170 @@
+﻿@model IEnumerable<AdaptivePublicWebsite.DataAccess.EntityFramework.ContentPublicSite>
+
+@{
+	ViewBag.Title = "Adaptive Systems";
+}
+
+<!--video-->
+<div class="embed-responsive embed-responsive-16by9 center-block">
+	<video loop muted autoplay class="overlayVideo" height="500">
+		<source src="~/Content/img/vid/ladyDev.mp4" type="video/mp4">
+	</video>
+	<div class="titleMessage">
+		<div class="heading">
+			<p class="main">Adaptive Systems</p>
+			<span id="typed"></span>
+			<p class="sub typed"></p>
+		</div>
+	</div>
+</div>
+
+<!--about-->
+<section id="about" class="aboutSection paddedFromSides paddedFromPoles">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<img class="aboutImage roundedContentImages" src="@Html.ViewBag.AboutPic" alt="about" />
+			</div>
+			<div class="row col-md-5">
+				<h4 class="center-block">@ViewBag.AboutTitle</h4>
+				@Html.Raw(@ViewBag.AboutContent)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 col-sm-6">
+				<div class="squareItem">
+					<div class="squareInnerContainer">
+						<div class="squareIcon">
+							<i class="fa fa-clock"></i>
+						</div>
+						<div class="squareContent">
+							<h2 class="counter">+ 25</h2>
+							<h3>Years Experience</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<div class="squareItem">
+					<div class="squareInnerContainer">
+						<div class="squareIcon">
+							<i class="fa fa-calendar"></i>
+						</div>
+						<div class="squareContent">
+							<h2 class="counter">+ 1000</h2>
+							<h3>Clients Served</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<div class="squareItem">
+					<div class="squareInnerContainer">
+						<div class="squareIcon">
+							<i class="fa fa-bolt"></i>
+						</div>
+						<div class="squareContent">
+							<h2 class="counter">> 500</h2>
+							<h3>Custom Applications</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<div class="squareItem">
+					<div class="squareInnerContainer">
+						<div class="squareIcon">
+							<i class="fa fa-cloud"></i>
+						</div>
+						<div class="squareContent">
+							<h2 class="counter">20</h2>
+							<h3>Industry Awards</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="cases" class="casesSection">
+	<div class="row col-md-12">
+		<div class="contentDiv text-light">
+			<div class="col-md-6">
+				<img class="img-fluid roundedContentImages aboutImage " src="@Html.ViewBag.CasesPic" alt="cases" />
+			</div>
+			<h2 class="center-block">@ViewBag.CasesTitle</h2>
+			<div class="col-md-6 scrollable" style="overflow-y: scroll; height:200px; padding-bottom:10px;">
+				@Html.Raw(@ViewBag.CasesContent)
+			</div>
+		</div>
+	</div>
+	<br />
+</section>
+
+<section id="testimonials" class="testimonialsSection">
+	<div class="row col-md-12">
+		<div class="contentDiv text-light">
+			<h2 class="center-block">@ViewBag.TestimonialsTitle</h2>
+			<div class="scrollable" style="overflow-y: scroll; height:200px; padding-bottom:10px;">
+				@Html.Raw(@ViewBag.TestimonialsContent)
+			</div>
+			@*<div class="col-md-6">
+					<img class="img-fluid roundedContentImages aboutImage " src="@Html.ViewBag.TestimonialsPic" alt="testimonials" />
+				</div>*@
+		</div>
+	</div>
+	<br />
+</section>
+
+<section id="careers" class="careersSection">
+	<div class="row col-md-12">
+		<div class="contentDiv">
+			<div class="col-md-6">
+				<img class="img-fluid roundedContentImages aboutImage" src="@Html.ViewBag.CareersPic" alt="careers" />
+			</div>
+			<h2 class="center-block">@ViewBag.CareersTitle</h2>
+			<div class="col-md-6 scrollable" style="overflow-y: scroll; height:200px; padding-bottom:10px;">
+				@Html.Raw(@ViewBag.CareersContent)
+			</div>
+		</div>
+	</div>
+	<br />
+</section>
+
+<section id="services" class="servicesSection" style="min-height:600px;">
+	<div class="row col-md-12">
+		<div class="contentDiv">
+			<div class="itemsContainer">
+				<div class="items">
+					<h2 class="center-block">Services</h2>
+					@for (int i = 0; i < Model.Count(); i += 4)
+					{
+						<div class="row col-md-12">
+							@foreach (var item in Model.Skip(i).Take(4))
+							{
+								if (item.IsUniqueServicePage.Equals(true))
+								{
+									<div class="col-md-4" style="text-align:center; padding:10px;">
+										<span class="serviceTitle">@item.Title</span>
+										<div class="item">
+											<img class="roundedImages img-fluid" src="@Url.Action("RenderImage", "Home", new { id = @item.ID })" style="height:200px;" alt="image" />
+											<div class="icons">
+												<a class="openButton" href="@Url.Action("Details", "Services", new { id = item.ID })">
+													<i class="fa fa-search"></i>
+												</a>
+											</div>
+											<div class="imageOverlay"></div>
+										</div>
+									</div>
+								}
+							}
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>

@@ -1,0 +1,425 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@ViewBag.Title</title>
+<link rel="shortcut icon" href="~/Content/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S"
+		crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/css/style.css">
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+@*@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+	<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" style="padding-top:125px;">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="col-md-6">
+						<h5 class="modal-title text-primary" id="exampleModalLabel">Contact Adaptive</h5>
+					</div>
+					<div class="col-md-6">
+						<button type="button" class="close text-primary" data-dismiss="modal" onclick="ResetContact()" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					<label id="txtContact" class="text-dark">
+						Send us a message and we will reach out to assist!
+					</label>
+					<label id="txtContactSuccess" class="text-success" style="display:none">
+						Success, we will contact your shortly!
+					</label>
+					<label id="txtContactFail" class="text-danger" style="display:none">
+						All fields are required...
+					</label>
+					<form method="post" id="contactForm">
+						<div class="form-group">
+							<label class="col-form-label">Name:</label>
+							<input type="text" class="form-control" id="contactName" placeholder="Full Name" required>
+						</div>
+						<div class="form-group">
+							<label class="col-form-label">Email:</label>
+							<input type="email" class="form-control" id="contactEmail" placeholder="Email" required>
+						</div>
+						<div class="form-group">
+							<label class="col-form-label">Who would you like to talk to?</label>
+							<select id="contactSendEmailOption" name="sendOption" class="form-control" style="height:40px;" required>
+								<option value="">Please select...</option>
+								<option value="sales">Sales</option>
+								<option value="hr">HR</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">Message:</label>
+							<textarea class="form-control" id="contactMessage" placeholder="Enter a message or ask a question..." required></textarea>
+						</div>
+						<script>
+							document.getElementById('contactForm').onsubmit = function (e) {
+								e.preventDefault();
+							}
+						</script>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" name="Close" data-dismiss="modal" onclick="ResetContact()" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<input type="submit" id="contactSubmit" value="Send" name="Create" class="btn btn-success" onclick="Contact()">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--top info strip navigation and search-->
+	<div class="fixed-top">
+		<div class="headerInfo">
+			<div class="col-md-10"></div>
+			<div class="col-md-2">
+				<span class="headerTextBold">Call Today:</span>
+				<span class="headerText">(317) 806-6401</span>
+			</div>
+		</div>
+		@if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+		{
+			<!--<div class="col-md-6"></div>-->
+			<nav id="navigation" class="navbar fixed-top navbar-expand-lg navbar-light bg-light divBorder" style="z-index:99">
+				<div class="row padLogo">
+					<div class="md-col-7">
+						<a href="#"><img src="~/Content/img/adaptLogo.png" /></a>
+						<br />
+						<div class="headerText">
+						</div>
+					</div>
+				</div>
+				<div class="md-col-5">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarToggler">
+						<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+							<li class="nav-item">
+								<br />
+								@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link dropdown-item btn btn-primary center-block", @style = "color:white;width:125px;" })
+							</li>
+							<li class="dropdown">
+								<br />
+								<a href="#" class="btn btn-primary center-block dropdown-toggle" data-toggle="dropdown" style="color:white;width:125px;">Adapt <span class="sr-only">(current)</span></a>
+								<div class="dropdown-menu">
+									<ul class="ulNoBullet">
+										<li class="nav-item">
+											@Html.ActionLink("About", "Index", "Home", null, new { @href = "#about" })
+										</li>
+										<li class="nav-item">
+											@Html.ActionLink("Careers", "Index", "Home", null, new { @href = "#careers" })
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li class="dropdown">
+								<br />
+								<a href="#" class="btn btn-primary center-block dropdown-toggle" data-toggle="dropdown" style="color:white;width:125px;">Engage <span class="sr-only">(current)</span></a>
+								<div class="dropdown-menu">
+									<ul class="ulNoBullet">
+										<li class="nav-item">
+											@Html.ActionLink("Testimonials", "Index", "Home", null, new { @href = "#testimonials" })
+										</li>
+										<li class="nav-item">
+											@Html.ActionLink("Case Studies", "Index", "Home", null, new { @href = "#cases" })
+										</li>
+										<li class="nav-item">
+											@Html.ActionLink("Contact", "Index", "Home", null, new { @href = "#contact" })
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li class="nav-item">
+								<br />
+								@if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+								{
+									@Html.ActionLink("Services", "Details", "Services", null, new { @href = "#services", @class = "btn btn-primary center-block", @style = "color:white;width:125px;" })
+								}
+								else
+								{
+									<a class="nav-link dropdown-item btn btn-primary center-block" style="color:white;width:125px;" href="@Url.Action("Index", "Home")#services">Services</a>
+								}
+
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		}
+		else
+		{
+			<!--<div class="col-md-6"></div>-->
+			<nav id="navigation" class="navbar fixed-top navbar-expand-lg navbar-light bg-light divBorder" style="z-index:99">
+				<div class="row padLogo">
+					<div class="md-col-7">
+						<a href="#"><img src="~/Content/img/adaptLogo.png" /></a>
+						@*BREADCRUMB CONTAINER AND LOGIC*@
+						<div id="breadcrumbs">
+							@if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+							{
+								@Html.Label(ViewContext.RouteData.Values["controller"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+							}
+
+							@if (ViewContext.RouteData.Values["controller"].ToString() == "Services" && ViewContext.RouteData.Values["action"].ToString() == "Details")
+							{
+								@:Home > @Html.Label(ViewContext.RouteData.Values["controller"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+								if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+								{
+									@:> @Html.Label(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+									@:> <a href="@Url.Action("Index", "Home")#services" class="previous"> Back...</a>
+								}
+							}
+
+							@if (ViewContext.RouteData.Values["controller"].ToString() == "Services" && ViewContext.RouteData.Values["action"].ToString() == "CourseDetails")
+							{
+								@:Home > @Html.Label(ViewContext.RouteData.Values["controller"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+								if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+								{
+									@:> @Html.Label(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+									@:> <a href="@Url.Action("Details", "Services", new { id = 0 })#services" class="previous"> Back...</a>
+								}
+							}
+
+							@if (ViewContext.RouteData.Values["controller"].ToString() == "Services" && ViewContext.RouteData.Values["action"].ToString() == "TrainerDetails")
+							{
+								@:Home > @Html.Label(ViewContext.RouteData.Values["controller"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+								if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+								{
+									@:> @Html.Label(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+									@:> <a href="@Url.Action("Details", "Services", new { id = 0 })#services" class="previous"> Back...</a>
+								}
+							}
+
+						</div>
+					</div>
+				</div>
+				<div class="md-col-5">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarToggler">
+						<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+							<li class="nav-item">
+								<br />
+								@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link dropdown-item btn btn-primary center-block", @style = "color:white;width:125px;" })
+							</li>
+							<li class="dropdown">
+								<br />
+								<a href="#" class="btn btn-primary center-block dropdown-toggle" data-toggle="dropdown" style="color:white;width:125px;">Adapt <span class="sr-only">(current)</span></a>
+								<div class="dropdown-menu">
+									<ul class="ulNoBullet">
+										<li class="nav-item">
+											<a href="@Url.Action("Index", "Home")#about">About</a>
+										</li>
+										<li class="nav-item">
+											<a href="@Url.Action("Index", "Home")#careers">Careers</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li class="dropdown">
+								<br />
+								<a href="#" class="btn btn-primary center-block dropdown-toggle" data-toggle="dropdown" style="color:white;width:125px;">Engage <span class="sr-only">(current)</span></a>
+								<div class="dropdown-menu">
+									<ul class="ulNoBullet">
+										<li class="nav-item">
+											<a href="@Url.Action("Index", "Home")#testimonials">Testimonials</a>
+										</li>
+										<li class="nav-item">
+											<a href="@Url.Action("Index", "Home")#cases">Cases</a>
+										</li>
+										<li class="nav-item">
+											<a href="@Url.Action("Index", "Home")#contact">Contact</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li class="nav-item">
+								<br />
+								@if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+								{
+									@Html.ActionLink("Services", "Details", "Services", null, new { @href = "#services", @class = "btn btn-primary center-block", @style = "color:white;width:125px;" })
+								}
+								else
+								{
+									<a class="nav-link dropdown-item btn btn-primary center-block" style="color:white;width:125px;" href="@Url.Action("Index", "Home")#services">Services</a>
+								}
+
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		}
+	</div>
+	<div>
+		<br />
+		@RenderBody()
+	</div>
+
+	@*footer*@
+	@*Layout for landing/home page footer*@
+	@if (ViewContext.RouteData.Values["controller"].ToString() == "Home")
+	{
+		<footer id="contact" class="copyrightSectionLanding text-center">
+			<div class="row col-md-12">
+				<div class="contentDiv">
+					<div class="col-md-4"></div>
+					<div class="col-md-6">
+						<h2 class="center-block">@ViewBag.ContactTitle</h2>
+						<div class="scrollable">
+							@Html.Raw(@ViewBag.ContactContent)
+						</div>
+					</div>
+					<div class="col-md-1">
+						<br />
+						<div>
+							<br /><br /><br />
+							<a href="#" data-toggle="modal" data-target="#contactModal" class="col-md-2" style="width:100px;">
+								<img src="~/Content/img/icons/email-40.png" />
+							</a>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<br />
+						<div>
+							<br /><br /><br />
+							<a href="https://www.linkedin.com/company/adaptive-systems/" target="_blank" class="col-md-2" style="width:100px;">
+								<img src="~/Content/img/icons/linkedin-6-40.png" />
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p>&copy;Adaptive Systems Inc. @DateTime.Now.Year.ToString() </p>
+			<br />
+		</footer>
+	}
+
+	@*Layout for services page footer*@
+	@if (ViewContext.RouteData.Values["controller"].ToString() == "Services")
+	{
+		<footer id="contact" class="copyrightSection text-center">
+			<div class="row col-md-12">
+				<div class="contentDiv">
+					<div class="col-md-4"></div>
+					<div class="col-md-6">
+						<h2 class="center-block">@ViewBag.ContactTitle</h2>
+						<div class="scrollable">
+							@Html.Raw(@ViewBag.ContactContent)
+						</div>
+					</div>
+					<div class="col-md-1">
+						<br />
+						<div>
+							<br /><br /><br />
+							<a href="#" data-toggle="modal" data-target="#contactModal" class="col-md-2" style="width:100px;">
+								<img src="~/Content/img/icons/email-40.png" />
+							</a>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<br />
+						<div>
+							<br /><br /><br />
+							<a href="https://www.linkedin.com/company/adaptive-systems/" target="_blank" class="col-md-2" style="width:100px;">
+								<img src="~/Content/img/icons/linkedin-6-40.png" />
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p>&copy;Adaptive Systems Inc. @DateTime.Now.Year.ToString() </p>
+			<br />
+		</footer>
+	}
+
+
+
+	@*@Scripts.Render("~/bundles/jquery")
+		@Scripts.Render("~/bundles/bootstrap")
+		@RenderSection("scripts", required: false)*@
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+	<script src="~/Scripts/bootstrap.js"></script>
+	<script src="~/Content/js/script.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+	<script type="text/javascript">
+		function Contact() {
+			var contactName = document.getElementById('contactName').value;
+			var contactEmail = document.getElementById('contactEmail').value;
+			var contactMessage = document.getElementById('contactMessage').value;
+			var txtContactSuccess = document.getElementById("txtContactSuccess");
+			var txtContactFail = document.getElementById("txtContactFail");
+			var contactForm = document.getElementById("contactForm");
+			var contactSubmit = document.getElementById("contactSubmit");
+			var contactSendEmailOption = document.getElementById("contactSendEmailOption").value;
+
+			if (contactName === "" || contactEmail === "" || contactMessage === "" || contactSendEmailOption === "") {
+				txtContactFail.style.display = "block";
+				txtContactSuccess.style.display = "none";
+			} else {
+				$.ajax({
+				type: "POST",
+				url: '@Url.Action("Create", "Contacts")',
+				data: {
+				Name: contactName,
+				Email: contactEmail,
+				Message: contactMessage,
+				sendOption: contactSendEmailOption
+			},
+				datatype: "json",
+					success: function (data) {
+						if (data !== null) {
+							txtContactSuccess.style.display = "block";
+							txtContactFail.style.display = "none";
+							contactForm.style.display = "none";
+							contactSubmit.style.display = "none";
+						} else {
+							txtContactSuccess.style.display = "none";
+							txtContactFail.style.display = "block";
+						}
+
+				//if (data === "success") {
+				//	txtContactSuccess.style.display = "block";
+				//	txtContactFail.style.display = "none";
+				//	contactForm.style.display = "none";
+				//	contactSubmit.style.display = "none";
+				//} else {
+				//	txtContactSuccess.style.display = "none";
+				//	txtContactFail.style.display = "block";
+				//}
+			}
+			});
+		}
+	}
+
+		function ResetContact() {
+			document.getElementById("txtContact").style.display = "block";
+			document.getElementById("txtContactSuccess").style.display = "none";
+			document.getElementById("txtContactFail").style.display = "none";
+			document.getElementById('contactName').value = "";
+			document.getElementById('contactEmail').value = "";
+			document.getElementById('contactMessage').value = "";
+			contactForm.style.display = "block";
+			contactSubmit.style.display = "block";
+		}
+	</script>
+</body>
+</html>
